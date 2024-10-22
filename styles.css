@@ -1,0 +1,28 @@
+/* Ajouter du remplissage en haut du contenu pour éviter qu'il soit caché derrière la barre de navigation */
+main {
+    margin-top: 10px; /* Ajuster cette valeur en fonction de la hauteur exacte de la barre de navigation */
+}
+
+/* Style général pour les tableaux avec des bordures */
+table {
+    border-collapse: collapse; /* Fusionner les bordures des cellules pour un rendu plus net et uniforme */
+    width: 100%; /* Faire en sorte que le tableau occupe toute la largeur disponible */
+    margin-bottom: 20px; /* Ajouter un espace entre le tableau et les éléments en dessous */
+}
+
+table, th, td {
+    border: 1px solid #ddd; /* Appliquer une bordure grise fine autour de chaque cellule */
+}
+
+th, td {
+    remplissage: 12px; /* Ajouter de l'espace intérieur (remplissage) autour du texte dans chaque cellule */
+    text-align: left; /* Aligner le texte à gauche par défaut */
+}
+
+th {
+    background-color: #f2f2f2; /* Utiliser un fond gris clair pour distinguer les en-têtes des autres lignes */
+}
+
+tr:hover {
+    background-color: #f5f5f5; /* Appliquer un fond légèrement plus foncé lorsque l'utilisateur survole une ligne */
+}
