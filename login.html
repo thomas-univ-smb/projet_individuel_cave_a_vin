@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+<!-- Ce template hérite de la structure de base (base.html) -->
+
+{% block title %}Connexion à la Cave à Vin{% endblock %}
+<!-- Définition du titre de la page comme "Connexion à la Cave à Vin" -->
+
+{% block content %}
+<h1 style="text-align: center;">Connexion</h1>
+<!-- Titre de la page de connexion centré -->
+
+<hr>
+
+<!-- Formulaire de connexion avec des champs pour l'email et le mot de passe -->
+<form method="post">
+    <input type="email" name="email" placeholder="Email" required>
+    <!-- Champ de saisie pour l'adresse email avec validation HTML de type "email" -->
+    
+    <input type="password" name="mot_de_passe" placeholder="Mot de passe" required>
+    <!-- Champ de saisie pour le mot de passe -->
+    
+    <button type="submit">Se connecter</button>
+    <!-- Bouton pour soumettre le formulaire et se connecter -->
+</form>
+
+<!-- Lien pour rediriger l'utilisateur vers la page d'inscription s'il n'a pas de compte -->
+<p>Pas encore de compte ? <a href="/register">S'inscrire</a></p>
+
+{% endblock %}

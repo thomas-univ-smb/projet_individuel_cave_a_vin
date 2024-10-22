@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+<!-- Ce template hérite de la structure de base (base.html) -->
+
+{% block title %}Inscription à la Cave à Vin{% endblock %}
+<!-- Définition du titre de la page comme "Inscription à la Cave à Vin" -->
+
+{% block content %}
+<h1 style="text-align: center;">Créer un compte</h1>
+<!-- Titre de la page d'inscription centré -->
+
+<hr>
+
+<!-- Formulaire d'inscription avec des champs pour le nom, l'email et le mot de passe -->
+<form method="post">
+    <input type="text" name="nom" placeholder="Nom" required>
+    <!-- Champ de saisie pour le nom avec validation HTML pour qu'il soit obligatoire -->
+    
+    <input type="email" name="email" placeholder="Email" required>
+    <!-- Champ de saisie pour l'email avec validation de type "email" et obligatoire -->
+    
+    <input type="password" name="mot_de_passe" placeholder="Mot de passe" required>
+    <!-- Champ de saisie pour le mot de passe, obligatoire -->
+
+    <button type="submit">S'inscrire</button>
+    <!-- Bouton pour soumettre le formulaire et créer le compte -->
+</form>
+
+<!-- Lien pour rediriger l'utilisateur vers la page de connexion s'il a déjà un compte -->
+<p>Déjà un compte ? <a href="/login">Se connecter</a></p>
+
+{% endblock %}

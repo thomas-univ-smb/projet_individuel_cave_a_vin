@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+<!-- Ce template hérite de la structure de base (base.html) -->
+
+{% block title %}Cave à Vin : Accueil{% endblock %}
+<!-- Définition du titre de la page comme "Cave à Vin : Accueil" -->
+
+{% block content %}
+<h1 style="text-align: center;">Bienvenue dans votre cave à vin</h1>
+<!-- Titre de la page d'accueil centré -->
+
+<hr>
+
+<!-- Section centrale avec une image représentant la cave -->
+<div style="text-align: center;">
+    <img src="{{ url_for('static', filename='cave.jpg') }}" alt="Image de la cave" style="max-width: 100%; height: auto;">
+    <!-- L'image est affichée avec une taille maximale ajustée à la largeur de la page tout en préservant ses proportions -->
+</div>
+
+{% endblock %}

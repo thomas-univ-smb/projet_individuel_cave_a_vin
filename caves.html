@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+<!-- Ce template hérite de la structure de base (base.html) -->
+
+{% block title %}Cave à Vin : Mes Caves{% endblock %}
+<!-- Définition du titre de la page comme "Cave à Vin : Mes Caves" -->
+
+{% block content %}
+<h1 style="text-align: center;">Mes Caves</h1>
+<hr>
+
+<!-- Formulaire pour créer une nouvelle cave, avec un champ pour le nom -->
+<h2>Créer une nouvelle cave</h2>
+<form action="/cave" method="POST">
+    <input type="text" name="nom" placeholder="Nom de la cave" required>
+    <button type="submit">Créer</button>
+</form>
+<hr>
+
+<!-- Section listant les caves existantes avec leurs détails et des actions possibles (voir, exporter, supprimer) -->
+<h2>Caves existantes</h2>
+<table>
+    <thead>
+        <tr>
+            <!-- En-têtes des colonnes pour le nom de la cave, le nombre d'étagères, et les actions disponibles -->
+            <th>Nom</th>
+            <th>Nombre d'étagères</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Boucle affichant chaque cave existante avec son nom, le nombre d'étagères, et des boutons pour des actions -->
+        {% for cave in caves %}
+        <tr>
+            <td>{{ cave.nom }}</td>
+            <td>{{ cave.nombre_etageres }} étagères</td>
+            <td>
+                <!-- Bouton pour voir les étagères d'une cave spécifique -->
+                <form action="/cave/{{ cave.id }}" method="GET" style="display:inline-block;">
+                    <button type="submit">Voir les étagères</button>
+                </form>
+                <!-- Bouton pour exporter les informations d'une cave en format JSON -->
+                <form action="{{ url_for('export_cave_json', cave_id=cave.id) }}" method="GET" style="display:inline-block;">
+                    <button type="submit">Exporter en .JSON</button>
+                </form>
+                <!-- Bouton pour supprimer une cave spécifique -->
+                <form action="{{ url_for('delete_cave', cave_id=cave.id) }}" method="post" style="display:inline-block;">
+                    <button type="submit">Supprimer</button>
+                </form>
+            </td>
+        </tr>
+        {% else %}
+        <!-- Message affiché s'il n'existe aucune cave -->
+        <tr>
+            <td colspan="3">Aucune cave existante.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

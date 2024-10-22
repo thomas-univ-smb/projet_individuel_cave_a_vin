@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <!-- Métadonnées du document, incluant l'encodage, la gestion du viewport pour mobile, et le titre de la page -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Bloc de titre modifiable dans d'autres templates utilisant ce fichier comme base -->
+    <title>{% block title %}Cave à Vin{% endblock %}</title>
+    
+    <!-- Lien vers Bootstrap pour le design responsive et vers le fichier CSS personnalisé -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+<!-- Section Header contenant la barre de navigation avec options dynamiques selon l'état de connexion de l'utilisateur -->
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <!-- Nom de l'application et bouton de menu pour les petits écrans -->
+            <a class="navbar-brand">Cave à Vin</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mr-auto">
+                    <!-- Liens de navigation, affichés ou cachés selon que l'utilisateur est connecté ou non -->
+                    <a class="btn btn-outline-success" href="/">Accueil</a>
+                    {% if current_user.is_authenticated %}
+                        <a class="btn btn-outline-info" href="/archive">Bouteilles Archivées</a>
+                        <a class="btn btn-outline-danger" href="/logout">Se Déconnecter</a>
+                    {% else %}
+                        <a class="btn btn-outline-warning" href="/login">Se Connecter</a>
+                        <a class="btn btn-outline-warning" href="/register">S'enregistrer</a>
+                    {% endif %}
+                </ul>
+                <!-- Affichage du nom de l'utilisateur connecté dans la barre de navigation -->
+                {% if current_user.is_authenticated %}
+                <span class="navbar-text text-white">
+                    Connecté en tant que : <strong>{{ current_user.nom }}</strong>
+                </span>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+</header>
+
+<!-- Section principale où le contenu spécifique à chaque page sera inséré dynamiquement -->
+<main class="container-fluid mt-4">
+    {% block content %}{% endblock %}
+</main>
+
+<!-- Section Footer, avec informations sur les droits d'auteur et les crédits -->
+<footer class="text-center mt-5">
+    <hr>
+    <p>&copy; Cave à Vin - Thomas DURAND - 2024 - M1 TRI</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+<!-- Ce template hérite de la structure de base (base.html) -->
+
+{% block title %}Cave à Vin : Bouteilles Archivées{% endblock %}
+<!-- Définition du titre de la page comme "Cave à Vin : Bouteilles Archivées" -->
+
+{% block content %}
+<h1 style="text-align: center;">Bouteilles archivées</h1>
+<hr>
+
+<!-- Tableau pour lister les bouteilles archivées, avec des en-têtes triables -->
+<table>
+    <thead>
+        <tr>
+            <!-- En-têtes avec liens pour trier les bouteilles par domaine, nom, type, année, région, etc. -->
+            <th><a href="?sort_by=domaine&sort_order={{ 'ASC' if sort_by != 'domaine' or next_order == 'ASC' else 'DESC' }}">Domaine</a></th>
+            <th><a href="?sort_by=nom&sort_order={{ 'ASC' if sort_by != 'nom' or next_order == 'ASC' else 'DESC' }}">Nom</a></th>
+            <th><a href="?sort_by=type&sort_order={{ 'ASC' if sort_by != 'type' or next_order == 'ASC' else 'DESC' }}">Type</a></th>
+            <th><a href="?sort_by=annee&sort_order={{ 'ASC' if sort_by != 'annee' or next_order == 'ASC' else 'DESC' }}">Année</a></th>
+            <th><a href="?sort_by=region&sort_order={{ 'ASC' if sort_by != 'region' or next_order == 'ASC' else 'DESC' }}">Région</a></th>
+            <th><a href="?sort_by=commentaires&sort_order={{ 'ASC' if sort_by != 'commentaires' or next_order == 'ASC' else 'DESC' }}">Commentaires</a></th>
+            <th><a href="?sort_by=note_personnelle&sort_order={{ 'ASC' if sort_by != 'note_personnelle' or next_order == 'ASC' else 'DESC' }}">Note personnelle</a></th>
+            <th><a href="?sort_by=note_moyenne&sort_order={{ 'ASC' if sort_by != 'note_moyenne' or next_order == 'ASC' else 'DESC' }}">Note moyenne</a></th>
+            <th>Photo de l'étiquette</th>
+            <th><a href="?sort_by=prix&sort_order={{ 'ASC' if sort_by != 'prix' or next_order == 'ASC' else 'DESC' }}">Prix</a></th>
+        </tr>
+    </thead>
+    
+    <!-- Corps du tableau affichant les bouteilles archivées -->
+    <tbody>
+        {% for bouteille in bouteilles %}
+        <tr>
+            <!-- Affichage des informations de chaque bouteille (domaine, nom, type, etc.) -->
+            <td>{{ bouteille.domaine }}</td>
+            <td>{{ bouteille.nom }}</td>
+            <td>{{ bouteille.type }}</td>
+            <td>{{ bouteille.annee }}</td>
+            <td>{{ bouteille.region }}</td>
+            <td>{{ bouteille.commentaires }}</td>
+            <td>{{ bouteille.note_personnelle or 'N/A' }}</td>
+            <td>{{ bouteille.note_moyenne or 'N/A' }}</td>
+            <td>
+                <!-- Affichage de la photo de l'étiquette, ou indication qu'il n'y a pas de photo -->
+                {% if bouteille.photo %}
+                    <img src="{{ url_for('static', filename=bouteille.photo) }}" alt="Étiquette" width="100">
+                {% else %}
+                    Pas de photo
+                {% endif %}
+            </td>
+            <td>{{ bouteille.prix }} €</td>
+        </tr>
+        {% else %}
+        <!-- Message affiché si aucune bouteille n'est archivée -->
+        <tr>
+            <td colspan="11">Aucune bouteille archivée.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

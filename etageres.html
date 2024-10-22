@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+<!-- Ce template hérite de la structure de base (base.html) -->
+
+{% block title %}Cave à Vin : {{ cave.nom }}{% endblock %}
+<!-- Le titre de la page affiche dynamiquement le nom de la cave -->
+
+{% block content %}
+<h1 style="text-align: center;">{{ cave.nom }}</h1>
+<!-- Le titre principal affiche le nom de la cave -->
+
+<a href="/caves" style="display: inline-block; margin-bottom: 20px;">Retourner à mes caves</a>
+<!-- Lien pour revenir à la liste des caves -->
+
+<hr>
+
+<!-- Formulaire pour ajouter une nouvelle étagère dans la cave, avec un champ pour le numéro et les emplacements disponibles -->
+<h2>Ajouter une étagère</h2>
+<form action="/etagere" method="POST">
+    <input type="hidden" name="cave_id" value="{{ cave.id }}">
+    <!-- Champ caché pour lier l'étagère à la cave actuelle -->
+    <input type="text" name="numero" placeholder="Numéro d'étagère" required>
+    <input type="number" name="emplacements_disponibles" placeholder="Emplacements disponibles" min="1" required>
+    <button type="submit">Ajouter</button>
+</form>
+
+<hr>
+
+<!-- Tableau listant toutes les étagères dans cette cave, avec des actions pour voir les bouteilles ou supprimer l'étagère -->
+<h2>Étagères dans cette cave</h2>
+<table>
+    <thead>
+        <tr>
+            <!-- En-têtes des colonnes pour le numéro de l'étagère, les emplacements disponibles, le nombre de bouteilles et les actions -->
+            <th>Numéro</th>
+            <th>Emplacements disponibles</th>
+            <th>Nombre de bouteilles</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Boucle affichant chaque étagère avec ses détails (numéro, emplacements disponibles, nombre de bouteilles) -->
+        {% for etagere in etageres %}
+        <tr>
+            <td>{{ etagere.numero }}</td>
+            <td>{{ etagere.emplacements_disponibles }}</td>
+            <td>{{ etagere.nombre_bouteilles }}</td>
+            <td>
+                <!-- Bouton pour voir les bouteilles sur l'étagère -->
+                <form action="/etagere/{{ etagere.id }}/bouteilles" method="GET" style="display:inline-block;">
+                    <button type="submit">Voir les bouteilles</button>
+                </form>
+                <!-- Bouton pour supprimer l'étagère -->
+                <form action="/etagere/{{ etagere.id }}/delete" method="POST" style="display:inline-block;">
+                    <button type="submit">Supprimer</button>
+                </form>
+            </td>
+        </tr>
+        {% else %}
+        <!-- Message affiché si aucune étagère n'est trouvée dans cette cave -->
+        <tr>
+            <td colspan="4">Aucune étagère trouvée.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
